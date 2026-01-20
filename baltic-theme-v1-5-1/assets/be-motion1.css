@@ -1,0 +1,69 @@
+/* =========================================================
+   Baltic Theme — Motion Layer (CALM + SLOW)
+   - Longer fades on scroll
+   - Replays on scroll down AND up (if your JS toggles body.be-dir-up)
+   - Respects prefers-reduced-motion
+   ========================================================= */
+
+:root{
+  /* Make these bigger for slower transitions */
+  --be-dur: 1100ms;        /* was ~620ms */
+  --be-stagger: 160ms;     /* was ~80ms */
+  --be-ease: cubic-bezier(.16,.9,.22,1); /* smoother than default */
+}
+
+/* Base reveal */
+.be-watch{
+  --be-op: 0;
+  --be-y: 18px;
+  --be-s: .985;
+
+  opacity: var(--be-op);
+  transform: translate3d(0, var(--be-y), 0) scale(var(--be-s));
+
+  transition:
+    opacity var(--be-dur) var(--be-ease),
+    transform var(--be-dur) var(--be-ease);
+
+  will-change: transform, opacity;
+}
+
+/* Only change the "starting offset" when element is OUT of view */
+body.be-dir-up .be-watch:not(.be-in) { --be-y: -18px; }
+body.be-dir-down .be-watch:not(.be-in) { --be-y: 18px; }
+
+
+.be-watch {
+  --be-op: 0;
+  --be-y: 18px;
+  --be-s: .985;
+
+  opacity: var(--be-op);
+  transform: translate3d(0, var(--be-y), 0) scale(var(--be-s));
+  transition: opacity 1200ms cubic-bezier(.2,.85,.25,1),
+              transform 1200ms cubic-bezier(.2,.85,.25,1);
+  will-change: transform, opacity;
+}
+
+.be-watch.be-in {
+  --be-op: 1;
+  --be-y: 0px;
+  --be-s: 1;
+}
+
+
+/* Slower stagger */
+.be-delay-1{ transition-delay: calc(var(--be-stagger) * 1); }
+.be-delay-2{ transition-delay: calc(var(--be-stagger) * 2); }
+.be-delay-3{ transition-delay: calc(var(--be-stagger) * 3); }
+.be-delay-4{ transition-delay: calc(var(--be-stagger) * 4); }
+.be-delay-5{ transition-delay: calc(var(--be-stagger) * 5); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .be-watch{
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

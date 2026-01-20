@@ -1,0 +1,275 @@
+/*
+Theme Name: Baltic Theme v1.5.1
+Theme URI: https://balticelectric.com
+Author: Baltic Electric Ltd
+Description: Custom Baltic Electric theme with Tailwind, video hero and CF7 contact form.
+Version: 1.5.1
+Text Domain: baltic-theme
+*/
+
+/* ========= Brand overrides ========= */
+.bg-emerald-400 { background-color: #34ab49 !important; }
+.hover\:bg-emerald-300:hover { background-color: #34ab49 !important; }
+
+.text-emerald-300,
+.text-emerald-400 { color: #34ab49 !important; }
+
+.border-emerald-500\/40 { border-color: rgba(52, 171, 73, 0.4) !important; }
+.bg-emerald-500\/10 { background-color: rgba(52, 171, 73, 0.10) !important; }
+
+/* ========= Contact Form 7 (Baltic styling) ========= */
+.wpcf7-form .be-field{
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+}
+
+.wpcf7-form .be-label{
+  color:#e5e7eb;
+  font-size:.875rem;
+}
+
+.wpcf7-form .be-input,
+.wpcf7-form .be-textarea{
+  width:100%;
+  background-color:#020617;
+  border:1px solid #1f2933;
+  color:#f9fafb;
+  font-size:.875rem;
+  border-radius:.5rem;
+  padding:.5rem .75rem;
+  outline:none;
+  transition:border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
+
+.wpcf7-form .be-textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.wpcf7-form .be-input:focus,
+.wpcf7-form .be-textarea:focus{
+  border-color:#34ab49;
+  box-shadow:0 0 0 1px rgba(52,171,73,.8);
+  transform:translateY(-1px);
+  background-color:#020617;
+}
+
+/* Shared CTA style (header, hero, CF7 submit) */
+a.bg-emerald-400,
+button.bg-emerald-400,
+.wpcf7-form input[type="submit"],
+.wpcf7-form input[type="submit"].be-submit,
+.wpcf7-form .wpcf7-submit{
+  background-image:linear-gradient(135deg,#34ab49,#46c45c) !important;
+  color:#020617 !important;
+  font-weight:600 !important;
+  font-size:.875rem !important;
+  padding:.625rem 1.6rem !important;
+  border-radius:9999px !important;
+  border:none !important;
+  cursor:pointer !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:.35rem !important;
+  letter-spacing:.02em !important;
+  box-shadow:0 10px 25px rgba(52,171,73,.30) !important;
+  transition:background-position 180ms ease, transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  background-size:140% 140%;
+  background-position:0% 50%;
+  -webkit-appearance:none;
+  appearance:none;
+  text-decoration:none !important;
+}
+
+a.bg-emerald-400:hover,
+button.bg-emerald-400:hover,
+.wpcf7-form input[type="submit"]:hover,
+.wpcf7-form .wpcf7-submit:hover{
+  transform:translateY(-1px) scale(1.02);
+  box-shadow:0 16px 40px rgba(52,171,73,.45) !important;
+  background-position:100% 50%;
+  filter:brightness(1.03);
+}
+
+a.bg-emerald-400:active,
+button.bg-emerald-400:active,
+.wpcf7-form input[type="submit"]:active,
+.wpcf7-form .wpcf7-submit:active{
+  transform:translateY(0) scale(.98);
+  box-shadow:0 6px 15px rgba(15,23,42,.9) !important;
+}
+
+/* CF7 messages */
+.wpcf7-response-output{
+  margin-top:.75rem;
+  font-size:.75rem;
+  border-radius:.5rem;
+  padding:.5rem .75rem;
+}
+.wpcf7-mail-sent-ok{
+  border-color:#34ab49 !important;
+  background-color:rgba(52,171,73,.1);
+  color:#bbf7d0;
+}
+.wpcf7-validation-errors,
+.wpcf7-acceptance-missing,
+.wpcf7-mail-sent-ng{
+  border-color:#ef4444 !important;
+  background-color:rgba(248,113,113,.08);
+  color:#fecaca;
+}
+
+/* ========= Hover card ========= */
+.hover-card{
+  transition:transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+.hover-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(15,23,42,.9);
+  border-color:rgba(52,171,73,.5);
+  background-color:rgba(15,23,42,.95);
+}
+
+/* ========= Nav underline animation ========= */
+header nav a{
+  position:relative;
+  transition:color 150ms ease, transform 150ms ease;
+}
+header nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-.3rem;
+  width:100%;
+  height:2px;
+  background:#34ab49;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 180ms ease;
+}
+header nav a:hover{ transform:translateY(-1px); }
+header nav a:hover::after{ transform:scaleX(1); }
+
+/* ========= Hero overlay fade-up ========= */
+@keyframes heroFadeUp{
+  from{ opacity:0; transform:translateY(10px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.hero-overlay-text{ animation:heroFadeUp .7s ease-out .1s both; }
+.hero-heading{ font-family:"Georgia","Times New Roman",serif; }
+
+/* ========= Logo hover ========= */
+.be-logo{
+  transition:transform 180ms ease, filter 180ms ease;
+  transform-origin:center;
+}
+a:hover .be-logo,
+.be-logo:hover{
+  transform:scale(1.06);
+  filter:drop-shadow(0 6px 18px rgba(52,171,73,.45));
+}
+
+/* ========= Amber ticks reveal ========= */
+@keyframes beFadeUp{
+  from{ opacity:0; transform:translateY(10px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.be-reveal{
+  opacity:0;
+  animation:beFadeUp 700ms ease-out both;
+}
+.be-delay-1{ animation-delay:120ms; }
+.be-delay-2{ animation-delay:240ms; }
+.be-delay-3{ animation-delay:360ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .be-reveal{ opacity:1; animation:none; }
+}
+
+/* =========================
+   MARQUEE (FIXED LOOP)
+   ========================= */
+
+/* Marquee container (fully transparent bubble) */
+.be-marquee{
+  position: relative;
+  overflow: hidden;
+  border: 0 !important;
+  outline: 0 !important;
+
+  /* FULLY TRANSPARENT */
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Soft edge fades (keep these if you like the nice blend) */
+.be-marquee:before,
+.be-marquee:after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width:56px;
+  z-index:5;
+  pointer-events:none;
+}
+.be-marquee:before{
+  left:0;
+  background: linear-gradient(to right, rgba(2,6,23,1), rgba(2,6,23,0));
+}
+.be-marquee:after{
+  right:0;
+  background: linear-gradient(to left, rgba(2,6,23,1), rgba(2,6,23,0));
+}
+
+/* Track: no wrapping, smooth GPU transform */
+.be-marquee-track{
+  display:flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+
+  /* IMPORTANT: animate by measured pixel shift */
+  animation: beMarquee 26s linear infinite;
+  padding: 10px 0;
+}
+
+/* Group: keep the spacing between cards */
+.be-marquee-group{
+  display:flex;
+  align-items:center;
+  gap: 18px;
+}
+
+/* Each item must not shrink */
+.be-marquee-item{
+  flex: 0 0 auto;
+}
+
+/* THE SEAM: guaranteed spacer so cards never touch on repeat */
+.be-marquee-seam{
+  flex: 0 0 auto;
+  width: 18px;           /* increase to 60px if you want even more gap */
+  height: 1px;
+}
+
+/* Pause on hover */
+.be-marquee:hover .be-marquee-track{
+  animation-play-state: paused;
+}
+
+/* Keyframes: use the real pixel distance (set in JS) */
+@keyframes beMarquee{
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(calc(-1 * var(--be-marquee-shift, 0px)),0,0); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .be-marquee-track{ animation:none; }
+  .be-marquee:before, .be-marquee:after{ display:none; }
+}

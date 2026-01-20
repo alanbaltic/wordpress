@@ -1,0 +1,83 @@
+/*
+Theme Name: Baltic Theme v1.4
+Theme URI: https://balticelectric.com
+Author: Baltic Electric Ltd
+Description: Custom Baltic Electric theme with Tailwind, video hero and CF7 contact form.
+Version: 1.4
+Text Domain: baltic-theme
+*/
+
+/* Brand green overrides */
+.bg-emerald-400 { background-color: #34ab49 !important; }
+.hover\:bg-emerald-300:hover { background-color: #34ab49 !important; }
+
+.text-emerald-300,
+.text-emerald-400 { color: #34ab49 !important; }
+
+.border-emerald-500\/40 { border-color: rgba(52, 171, 73, 0.4) !important; }
+.bg-emerald-500\/10 { background-color: rgba(52, 171, 73, 0.10) !important; }
+
+/* ...KEEP ALL YOUR CSS HERE... */
+
+/* Bubble container (NO outline) */
+.be-marquee{
+  position: relative;
+  overflow: hidden;
+  border: 0 !important;
+  outline: 0 !important;
+  background: rgba(15,23,42,0.28);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Soft edge fades */
+.be-marquee:before,
+.be-marquee:after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width:56px;
+  z-index:5;
+  pointer-events:none;
+}
+.be-marquee:before{
+  left:0;
+  background: linear-gradient(to right, rgba(2,6,23,1), rgba(2,6,23,0));
+}
+.be-marquee:after{
+  right:0;
+  background: linear-gradient(to left, rgba(2,6,23,1), rgba(2,6,23,0));
+}
+/* Marquee: smooth loop */
+.be-marquee-track{
+  display:flex;
+  width:max-content;
+  will-change: transform;
+  animation: beMarquee 26s linear infinite;
+  padding: 8px 0;
+}
+
+.be-marquee-group{
+  display:flex;
+  align-items:center;
+  gap: 18px;
+}
+
+.be-marquee-item{
+  flex: 0 0 auto;
+}
+
+.be-marquee:hover .be-marquee-track{
+  animation-play-state: paused;
+}
+
+@keyframes beMarquee{
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .be-marquee-track{ animation:none; }
+  .be-marquee:before, .be-marquee:after{ display:none; }
+}
