@@ -56,8 +56,16 @@
     'be-fx-glitch'
   ];
 
+  const textSelectors = '.hero-overlay-text, .hero-heading';
+  const isTextElement = (el) => {
+    if (!el) return false;
+    if (/^(H1|H2|H3|P)$/i.test(el.tagName)) return true;
+    return el.matches(textSelectors);
+  };
+
   function applyRandomFX(el){
     FX.forEach(c => el.classList.remove(c));
+    if (isTextElement(el)) return;
     // Don’t glitch EVERYTHING — reserve more for headings.
     const isHeading = /^(H1|H2|H3)$/i.test(el.tagName);
     let pool = FX;
@@ -82,6 +90,7 @@
     if (el.closest('header') || el.closest('nav') || el.closest('.bqd-modal')) return;
     // Don’t animate tiny footer legal lines too aggressively
     if (el.closest('footer')) return;
+    el.classList.add('be-no-parallax');
     targets.add(el);
   });
 
@@ -115,7 +124,7 @@
 
   // Scroll-reactive parallax (subtle, but makes it feel alive)
   const parallaxEls = Array.from(document.querySelectorAll('.be-parallax'))
-    .filter(el => !el.closest('header') && !el.closest('nav'));
+    .filter(el => !el.closest('header') && !el.closest('nav') && !isTextElement(el));
 
   let raf = null;
   function tick(){

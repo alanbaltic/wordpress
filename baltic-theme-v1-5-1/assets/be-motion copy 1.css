@@ -37,6 +37,11 @@ body.be-calm{ --be-chaos: .35; }
   will-change: transform, opacity;
 }
 
+.be-no-parallax{
+  --be-prx: 0px;
+  --be-pry: 0px;
+}
+
 /* Direction-aware reveal */
 body.be-dir-up .be-watch{ --be-y: -18px; }
 
