@@ -49,7 +49,6 @@
   }
 
   const FX = [
-    'be-fx-pop',
     'be-fx-wobble',
     'be-fx-slam',
     'be-fx-swing',
