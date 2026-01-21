@@ -2,8 +2,8 @@
   Baltic Motion — CALM+ (keeps swaps + CTA wow, removes jumpy FX)
   - Smooth reveal replay on scroll up & down
   - Longer fades
-  - CTA shimmer + hover bounce + link underline sweep (text-only)
-  - Headline swap uses opacity-only animations (won't fight transforms)
+  - CTA shimmer + link underline sweep (text-only)
+  - Headline swap uses opacity-only animations
   - Respects prefers-reduced-motion
 */
 
@@ -131,22 +131,10 @@ body.be-dir-down .be-watch:not(.be-in){ --be-y: 14px; }
   animation: beShimmer 3.2s ease-in-out infinite;
 }
 
-/* gentle hover bounce
-   NOTE: best if CTAs are NOT also .be-watch (see JS tip below) */
-.be-cta-wow:hover{
-  animation: beBtnBounce 520ms var(--be-ease) both;
-}
-
 @keyframes beShimmer{
   0%{ transform: translateX(-45%); }
   50%{ transform: translateX(25%); }
   100%{ transform: translateX(120%); }
-}
-
-@keyframes beBtnBounce{
-  0%{ transform: translateY(0) scale(1); }
-  50%{ transform: translateY(-2px) scale(1.02); }
-  100%{ transform: translateY(0) scale(1); }
 }
 
 /* =========================================================
@@ -197,6 +185,19 @@ body.be-dir-down .be-watch:not(.be-in){ --be-y: 14px; }
 }
 
 /* =========================================================
+   Headline swap fade
+   ========================================================= */
+.be-swap-fade-out{
+  opacity: 0;
+  transition: opacity 360ms var(--be-ease);
+}
+
+.be-swap-fade-in{
+  opacity: 1;
+  transition: opacity 700ms var(--be-ease);
+}
+
+/* =========================================================
    Ambient glow drift (subtle)
    NOTE: z-index guard is only applied to .min-h-screen. If your theme
    doesn't use that wrapper, add z-index:1 to your main container.
@@ -224,7 +225,7 @@ body.be-motion-ready .min-h-screen{ position: relative; z-index: 1; }
    ========================================================= */
 @media (prefers-reduced-motion: reduce){
   .be-watch{ transition:none !important; transform:none !important; opacity:1 !important; }
-  .be-swap-fade-out, .be-swap-fade-in{ animation:none !important; opacity:1 !important; }
+  .be-swap-fade-out, .be-swap-fade-in{ transition:none !important; opacity:1 !important; }
   .be-cta-wow::after{ display:none !important; }
   body.be-motion-ready::before{ display:none !important; }
 }

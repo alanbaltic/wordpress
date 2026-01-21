@@ -191,23 +191,23 @@
     { passive: true }
   );
 
-  // ---- Headline swap (BOUNCE classes, not fade)
+  // ---- Headline swap (slow fade)
   function startSwap(el, a, b, ms) {
     if (!el) return;
     let on = false;
-    const t = Math.max(2200, ms || 2600);
+    const t = Math.max(2400, ms || 2800);
 
     setInterval(() => {
-      el.classList.remove("be-swap-in");
-      el.classList.add("be-swap-out");
+      el.classList.remove("be-swap-fade-in");
+      el.classList.add("be-swap-fade-out");
 
       setTimeout(() => {
         el.textContent = on ? a : b;
-        el.classList.remove("be-swap-out");
-        el.classList.add("be-swap-in");
-        setTimeout(() => el.classList.remove("be-swap-in"), 560);
+        el.classList.remove("be-swap-fade-out");
+        el.classList.add("be-swap-fade-in");
+        setTimeout(() => el.classList.remove("be-swap-fade-in"), 700);
         on = !on;
-      }, 260);
+      }, 360);
     }, t);
   }
 
