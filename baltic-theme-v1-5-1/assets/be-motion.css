@@ -40,6 +40,7 @@
 .be-cta-wow{
   position: relative;
   overflow: hidden;
+  border: 1px solid transparent;
   transition: box-shadow 240ms var(--be-ease), filter 240ms var(--be-ease);
 }
 
@@ -56,6 +57,7 @@
 
 .be-cta-wow:hover{
   transform: none !important;
+  border-color: #fbbf24;
   box-shadow: 0 16px 40px rgba(52,171,73,.45) !important;
   filter: brightness(1.02);
 }

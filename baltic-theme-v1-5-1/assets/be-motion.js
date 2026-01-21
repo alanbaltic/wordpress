@@ -51,11 +51,9 @@
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("be-in");
-        } else {
-          entry.target.classList.remove("be-in");
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("be-in");
+        io.unobserve(entry.target);
       });
     },
     {
