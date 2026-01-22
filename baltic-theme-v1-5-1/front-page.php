@@ -38,7 +38,7 @@ get_header();
 
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-4 mx-auto max-w-4xl">
       Solar, EV &amp; Electrical Done Properly in
-      <span class="text-emerald-400">London &amp; Surrounding Areas</span>.
+      <span class="text-emerald-400 block whitespace-nowrap">London &amp; Surrounding Areas</span>.
     </h1>
 
     <p class="text-sm sm:text-base text-slate-300 mb-6 mx-auto max-w-2xl">
