@@ -30,6 +30,7 @@
           <li><a href="<?php echo esc_url( home_url('/servicing-maintenance/') ); ?>" class="hover:text-emerald-400">Servicing &amp; Maintenance</a></li>
           <li><a href="<?php echo esc_url( home_url('/eco4-gbis/') ); ?>" class="hover:text-emerald-400">ECO4 &amp; GBIS</a></li>
           <li><a href="<?php echo esc_url( home_url('/kids-zone/') ); ?>" class="hover:text-emerald-400">Kids Zone</a></li>
+          <li><a href="<?php echo esc_url( home_url('/careers/') ); ?>" class="hover:text-emerald-400">Careers</a></li>
           <li><a href="<?php echo esc_url( home_url('/faq/') ); ?>" class="hover:text-emerald-400">FAQs</a></li>
         </ul>
       </div>

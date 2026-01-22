@@ -1,230 +1,108 @@
 /*
-  Baltic Motion — CALM+ (keeps swaps + CTA wow, removes jumpy FX)
-  - Smooth reveal replay on scroll up & down
-  - Longer fades
-  - CTA shimmer + hover bounce + link underline sweep (text-only)
-  - Headline swap uses opacity-only animations (won't fight transforms)
+  Baltic Theme v1.6 — Motion Layer (fresh start)
+  - Slow fade + lift reveal
+  - Gentle CTA glow (no bounce)
+  - Hero headline cross-fade swap
   - Respects prefers-reduced-motion
 */
 
 :root{
   --be-ease: cubic-bezier(.2,.85,.25,1);
-  --be-dur: 1100ms;      /* longer fade */
-  --be-stagger: 70ms;
-  --be-chaos: .22;       /* subtle intensity only */
+  --be-fade-duration: 1000ms;
+  --be-fade-distance: 20px;
+  --be-fade-blur: 6px;
 }
 
 /* =========================================================
-   Reveal system
+   Scroll reveal
    ========================================================= */
 .be-watch{
-  --be-op: 0;
-  --be-y: 14px;
-  --be-s: .992;
-
-  opacity: var(--be-op);
-  transform: translate3d(0, var(--be-y), 0) scale(var(--be-s));
+  opacity: 0;
+  transform: translate3d(0, var(--be-fade-distance), 0) scale(.985);
+  filter: blur(var(--be-fade-blur));
   transition:
-    opacity var(--be-dur) var(--be-ease),
-    transform var(--be-dur) var(--be-ease);
-  will-change: transform, opacity;
+    opacity var(--be-fade-duration) var(--be-ease),
+    transform var(--be-fade-duration) var(--be-ease),
+    filter var(--be-fade-duration) var(--be-ease);
+  transition-delay: var(--be-delay, 0ms);
+  will-change: transform, opacity, filter;
 }
-
-/* Direction offset only while NOT in-view */
-body.be-dir-up .be-watch:not(.be-in){ --be-y: -14px; }
-body.be-dir-down .be-watch:not(.be-in){ --be-y: 14px; }
 
 .be-in{
-  --be-op: 1;
-  --be-y: 0px;
-  --be-s: 1;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
 }
-
-/* optional stagger helpers */
-.be-delay-1{ transition-delay: calc(var(--be-stagger) * 1); }
-.be-delay-2{ transition-delay: calc(var(--be-stagger) * 2); }
-.be-delay-3{ transition-delay: calc(var(--be-stagger) * 3); }
-.be-delay-4{ transition-delay: calc(var(--be-stagger) * 4); }
 
 /* =========================================================
-   Text-link shimmer (View Services etc.)
-   ========================================================= */
-.be-link-sweep{
-  display: inline-flex;
-  align-items: center;
-  gap: .25rem;
-  position: relative;
-  text-decoration: none;
-}
-
-.be-link-text{
-  position: relative;
-  display: inline-block;
-  padding-bottom: 4px;
-}
-
-/* underline sweep */
-.be-link-text::after{
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height:2px;
-  border-radius:999px;
-  background: linear-gradient(
-    90deg,
-    rgba(52,211,153,0),
-    rgba(52,211,153,.90),
-    rgba(252,211,77,.70),
-    rgba(52,211,153,0)
-  );
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 520ms var(--be-ease);
-}
-
-.be-link-sweep:hover .be-link-text::after{
-  transform: scaleX(1);
-}
-
-/* shimmer highlight that travels across the TEXT only */
-.be-link-text::before{
-  content:"";
-  position:absolute;
-  top:-2px; bottom:-2px;
-  left:-35%;
-  width:35%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.20), transparent);
-  transform: translateX(-120%);
-  opacity: .0;
-  pointer-events:none;
-}
-
-.be-link-sweep:hover .be-link-text::before{
-  opacity: .9;
-  animation: beTextShimmer 900ms ease-in-out both;
-}
-
-@keyframes beTextShimmer{
-  0%{ transform: translateX(-120%); }
-  100%{ transform: translateX(360%); }
-}
-
-
-/* =========================================================
-   CTA WOW
+   CTA glow (no bounce)
    ========================================================= */
 .be-cta-wow{
   position: relative;
   overflow: hidden;
-  transform: translateZ(0);
+  border: 1px solid transparent !important;
+  transition: box-shadow 240ms var(--be-ease), filter 240ms var(--be-ease);
 }
 
-/* subtle shimmer pass */
 .be-cta-wow::after{
   content:"";
   position:absolute;
-  inset:-45% -130%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.20), transparent);
-  transform: translateX(-35%);
-  opacity: calc(.28 + (.18 * var(--be-chaos)));
+  inset:-40% -120%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: translateX(-45%);
+  opacity: .5;
   pointer-events:none;
-  animation: beShimmer 3.2s ease-in-out infinite;
+  animation: beCtaSheen 3.6s ease-in-out infinite;
 }
 
-/* gentle hover bounce
-   NOTE: best if CTAs are NOT also .be-watch (see JS tip below) */
 .be-cta-wow:hover{
-  animation: beBtnBounce 520ms var(--be-ease) both;
+  transform: none !important;
+  border-color: #fbbf24 !important;
+  box-shadow: 0 16px 40px rgba(52,171,73,.45) !important;
+  filter: brightness(1.02);
 }
 
-@keyframes beShimmer{
+.be-cta-wow:active{
+  transform: none !important;
+}
+
+@keyframes beCtaSheen{
   0%{ transform: translateX(-45%); }
-  50%{ transform: translateX(25%); }
+  50%{ transform: translateX(20%); }
   100%{ transform: translateX(120%); }
 }
 
-@keyframes beBtnBounce{
-  0%{ transform: translateY(0) scale(1); }
-  50%{ transform: translateY(-2px) scale(1.02); }
-  100%{ transform: translateY(0) scale(1); }
-}
-
 /* =========================================================
-   Link underline sweep (TEXT ONLY)
-   - Do NOT transform the <a> (can fight .be-watch transforms)
+   Headline cross-fade
    ========================================================= */
-.be-link-sweep{
-  display: inline-flex;
-  align-items: center;
-  gap: .25rem;
-  position: relative;
+.be-swap{
+  transition: opacity 700ms var(--be-ease);
+  will-change: opacity;
 }
 
-.be-link-text{
-  position: relative;
-  display: inline-block;
-  padding-bottom: 4px;
-  transition: transform 260ms var(--be-ease), filter 260ms var(--be-ease);
+.be-swap-fade-out{
+  opacity: 0;
 }
 
-.be-link-text::after{
-  content:"";
-  position:absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(52,211,153,.0),
-    rgba(52,211,153,.85),
-    rgba(252,211,77,.65),
-    rgba(52,211,153,.0)
-  );
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 420ms var(--be-ease);
+.be-swap-fade-in{
+  opacity: 1;
 }
-
-.be-link-sweep:hover .be-link-text{
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-}
-
-.be-link-sweep:hover .be-link-text::after{
-  transform: scaleX(1);
-}
-
-/* =========================================================
-   Ambient glow drift (subtle)
-   NOTE: z-index guard is only applied to .min-h-screen. If your theme
-   doesn't use that wrapper, add z-index:1 to your main container.
-   ========================================================= */
-body.be-motion-ready::before{
-  content:"";
-  position: fixed;
-  inset:-20vh -20vw;
-  background:
-    radial-gradient(60vh 60vh at 20% 20%, rgba(52,171,73,.14), transparent 55%),
-    radial-gradient(55vh 55vh at 80% 30%, rgba(245,158,11,.10), transparent 55%),
-    radial-gradient(70vh 70vh at 60% 80%, rgba(56,189,248,.10), transparent 55%);
-  filter: blur(34px);
-  opacity: calc(.45 + (.10 * var(--be-chaos)));
-  z-index: 0;
-  pointer-events:none;
-  transform: translate3d(calc(var(--be-mx,0px) * .03), calc(var(--be-my,0px) * .03), 0);
-}
-
-/* keep layout above ambient */
-body.be-motion-ready .min-h-screen{ position: relative; z-index: 1; }
 
 /* =========================================================
    Reduced motion
    ========================================================= */
 @media (prefers-reduced-motion: reduce){
-  .be-watch{ transition:none !important; transform:none !important; opacity:1 !important; }
-  .be-swap-fade-out, .be-swap-fade-in{ animation:none !important; opacity:1 !important; }
-  .be-cta-wow::after{ display:none !important; }
-  body.be-motion-ready::before{ display:none !important; }
+  .be-watch{
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .be-cta-wow::after{
+    display: none !important;
+  }
+  .be-swap{
+    transition: none !important;
+    opacity: 1 !important;
+  }
 }

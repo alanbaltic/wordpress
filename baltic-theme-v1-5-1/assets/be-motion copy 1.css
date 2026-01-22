@@ -7,209 +7,33 @@
 
 :root{
   --be-ease: cubic-bezier(.2,.85,.25,1);
-  --be-ease-bounce: cubic-bezier(.2,1.55,.35,1);
-  --be-dur: 620ms;
-  --be-stagger: 80ms;
-  --be-chaos: 1; /* 0..1 (JS can lower this) */
+  --be-dur: 900ms;
+  --be-delay: 80ms;
 }
-
-/* If you ever want to calm it down: add class="be-calm" to <body> */
-body.be-calm{ --be-chaos: .35; }
 
 /* =========================================================
    Base reveal system (replays both ways)
    ========================================================= */
 .be-watch{
-  --be-op: 0;
-  --be-y: 18px;
-  --be-s: .965;
-  --be-r: 0deg;
-  --be-prx: 0px;
-  --be-pry: 0px;
-
-  opacity: var(--be-op);
-  transform: translate3d(var(--be-prx), calc(var(--be-y) + var(--be-pry)), 0) scale(var(--be-s)));
-
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
   transition:
     opacity var(--be-dur) var(--be-ease),
     transform var(--be-dur) var(--be-ease);
-
   will-change: transform, opacity;
 }
 
 /* Direction-aware reveal */
-body.be-dir-up .be-watch{ --be-y: -18px; }
-
 .be-in{
-  --be-op: 1;
-  --be-y: 0px;
-  --be-s: 1;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
-.be-delay-1{ transition-delay: calc(var(--be-stagger) * 1); }
-.be-delay-2{ transition-delay: calc(var(--be-stagger) * 2); }
-.be-delay-3{ transition-delay: calc(var(--be-stagger) * 3); }
-.be-delay-4{ transition-delay: calc(var(--be-stagger) * 4); }
-
-/* =========================================================
-   Extra chaos FX — applied by JS as classes on enter
-   ========================================================= */
-
-/* pop in, then keep a tiny float */
-.be-in.be-fx-pop{
-  animation:
-    bePopIn calc(520ms + (220ms * var(--be-chaos))) var(--be-ease-bounce) both,
-    beFloat calc(2.4s - (0.6s * var(--be-chaos))) ease-in-out 0.2s infinite;
-}
-
-.be-in.be-fx-wobble{ animation: beWobble calc(1.2s - (0.25s * var(--be-chaos))) var(--be-ease) both; }
-.be-in.be-fx-slam{  animation: beSlam  calc(720ms + (220ms * var(--be-chaos))) var(--be-ease-bounce) both; }
-.be-in.be-fx-swing{ animation: beSwing calc(1.1s - (0.2s * var(--be-chaos))) ease-in-out both; }
-
-/* fun but dangerous; keep it mostly on headings */
-.be-in.be-fx-glitch{
-  position: relative;
-  animation: beGlitch calc(1.1s - (0.2s * var(--be-chaos))) steps(2,end) both;
-  text-shadow:
-    calc(1px * var(--be-chaos)) 0 rgba(52,171,73,.45),
-    calc(-1px * var(--be-chaos)) 0 rgba(245,158,11,.35);
-}
-
-/* tiny random jitter — only while visible */
-.be-in.be-fx-jitter{
-  animation: beJitter calc(900ms - (250ms * var(--be-chaos))) steps(2,end) infinite;
-}
-
-/* =========================================================
-   Headline swap (JS toggles classes)
-   ========================================================= */
-.be-swap-out{ animation: beSwapOut 260ms var(--be-ease) both; }
-.be-swap-in{  animation: beSwapIn  420ms var(--be-ease-bounce) both; }
-
-/* =========================================================
-   CTA WOW (shimmer + bounce)
-   ========================================================= */
-.be-cta-wow{
-  position: relative;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.be-cta-wow::after{
-  content:"";
-  position:absolute;
-  inset:-40% -120%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
-  transform: translateX(-30%);
-  opacity: calc(.45 * var(--be-chaos));
-  pointer-events:none;
-  animation: beShimmer calc(2.6s - (0.8s * var(--be-chaos))) ease-in-out infinite;
-}
-
-.be-cta-wow:hover{
-  animation: beBtnBounce 520ms var(--be-ease-bounce) both;
-}
-
-/* =========================================================
-   Ambient life: subtle page glow drift
-   ========================================================= */
-body.be-motion-ready::before{
-  content:"";
-  position: fixed;
-  inset:-20vh -20vw;
-  background:
-    radial-gradient(60vh 60vh at 20% 20%, rgba(52,171,73,.20), transparent 55%),
-    radial-gradient(55vh 55vh at 80% 30%, rgba(245,158,11,.14), transparent 55%),
-    radial-gradient(70vh 70vh at 60% 80%, rgba(56,189,248,.12), transparent 55%);
-  filter: blur(30px);
-  opacity: calc(.75 * var(--be-chaos));
-  z-index: 0;
-  pointer-events:none;
-  transform: translate3d(calc(var(--be-mx,0px) * .03), calc(var(--be-my,0px) * .03), 0);
-}
-
-/* keep your layout above ambient */
-body.be-motion-ready .min-h-screen{ position: relative; z-index: 1; }
-
-/* =========================================================
-   Keyframes
-   ========================================================= */
-@keyframes bePopIn{
-  0%{ transform: translate3d(var(--be-prx), calc((var(--be-y) + var(--be-pry)) * 1.2),0) scale(.92) + 1.2deg)); filter: blur(2px); }
-  60%{ transform: translate3d(var(--be-prx), calc((var(--be-y) + var(--be-pry)) * .2),0) scale(1.03) - .6deg)); filter: blur(0); }
-  100%{ transform: translate3d(var(--be-prx), calc(var(--be-y) + var(--be-pry)),0) scale(1)); }
-}
-
-@keyframes beFloat{
-  0%,100%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) + 0px),0) scale(1)); }
-  50%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) - (6px * var(--be-chaos))),0) scale(1) + (.35deg * var(--be-chaos)))); }
-}
-
-@keyframes beWobble{
-  0%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) + 10px),0) scale(.98))); }
-  35%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) - 6px),0) scale(1.01))); }
-  70%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) + 2px),0) scale(1))); }
-  100%{ transform: translate3d(var(--be-prx), var(--be-pry),0) scale(1)); }
-}
-
-@keyframes beSlam{
-  0%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) - 26px),0) scale(.92); }
-  70%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) + 6px),0) scale(1.03); }
-  100%{ transform: translate3d(var(--be-prx), var(--be-pry),0) scale(1); }
-}
-
-@keyframes beSwing{
-  0%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) + 12px),0))); }
-  45%{ transform: translate3d(var(--be-prx), calc(var(--be-pry) - 6px),0))); }
-  100%{ transform: translate3d(var(--be-prx), var(--be-pry),0)); }
-}
-
-@keyframes beGlitch{
-  0%{ transform: translate3d(var(--be-prx), var(--be-pry),0); }
-  20%{ transform: translate3d(calc(var(--be-prx) + (2px * var(--be-chaos))), calc(var(--be-pry) - (1px * var(--be-chaos))),0))); }
-  40%{ transform: translate3d(calc(var(--be-prx) - (2px * var(--be-chaos))), calc(var(--be-pry) + (1px * var(--be-chaos))),0))); }
-  60%{ transform: translate3d(calc(var(--be-prx) + (1px * var(--be-chaos))), var(--be-pry),0))); }
-  100%{ transform: translate3d(var(--be-prx), var(--be-pry),0); }
-}
-
-@keyframes beJitter{
-  0%{ transform: translate3d(var(--be-prx), var(--be-pry),0)); }
-  25%{ transform: translate3d(calc(var(--be-prx) + (2px * var(--be-chaos))), calc(var(--be-pry) - (1px * var(--be-chaos))),0) + (.6deg * var(--be-chaos)))); }
-  50%{ transform: translate3d(calc(var(--be-prx) - (2px * var(--be-chaos))), calc(var(--be-pry) + (2px * var(--be-chaos))),0) - (.7deg * var(--be-chaos)))); }
-  75%{ transform: translate3d(calc(var(--be-prx) + (1px * var(--be-chaos))), calc(var(--be-pry) + (1px * var(--be-chaos))),0) + (.4deg * var(--be-chaos)))); }
-  100%{ transform: translate3d(var(--be-prx), var(--be-pry),0)); }
-}
-
-@keyframes beSwapOut{
-  from{ transform: translateY(0) scale(1); opacity:1; }
-  to{   transform: translateY(-10px) scale(.96); opacity:.1; }
-}
-
-@keyframes beSwapIn{
-  0%{ transform: translateY(14px) scale(.92); opacity:.1; }
-  70%{ transform: translateY(-2px) scale(1.03); opacity:1; }
-  100%{ transform: translateY(0) scale(1); opacity:1; }
-}
-
-@keyframes beShimmer{
-  0%{ transform: translateX(-40%); }
-  50%{ transform: translateX(30%); }
-  100%{ transform: translateX(120%); }
-}
-
-@keyframes beBtnBounce{
-  0%{ transform: translateY(0) scale(1); }
-  50%{ transform: translateY(-3px) scale(1.03); }
-  100%{ transform: translateY(0) scale(1); }
-}
+body.be-dir-up .be-watch{ transform: translate3d(0, -18px, 0); }
 
 /* =========================================================
    Reduced motion
    ========================================================= */
 @media (prefers-reduced-motion: reduce){
-  :root{ --be-chaos: 0; }
   .be-watch{ transition: none !important; transform: none !important; opacity:1 !important; }
-  .be-in, .be-swap-out, .be-swap-in{ animation:none !important; }
-  .be-cta-wow::after{ display:none !important; }
-  body.be-motion-ready::before{ display:none !important; }
 }
