@@ -41,6 +41,7 @@
           <li><a href="<?php echo esc_url( home_url('/privacy-policy/') ); ?>" class="hover:text-emerald-400">Privacy Policy</a></li>
           <li><a href="<?php echo esc_url( home_url('/terms-and-conditions/') ); ?>" class="hover:text-emerald-400">Terms &amp; Conditions</a></li>
           <li><a href="<?php echo esc_url( home_url('/health-and-safety-policy/') ); ?>" class="hover:text-emerald-400">Health &amp; Safety Policy</a></li>
+          <li><a href="<?php echo esc_url( home_url('/accreditations/') ); ?>" class="hover:text-emerald-400">Accreditations</a></li>
         </ul>
       </div>
     </div>
