@@ -26,6 +26,17 @@ function baltic_enqueue_assets() {
     );
   }
 
+  // BTS 2026 design layer. Existing theme and quote-modal scripts remain active.
+  $bts_css = get_stylesheet_directory() . '/assets/bts.css';
+  if (file_exists($bts_css)) {
+    wp_enqueue_style(
+      'bts-modern',
+      get_stylesheet_directory_uri() . '/assets/bts.css',
+      ['baltic-style'],
+      filemtime($bts_css)
+    );
+  }
+
   if (file_exists($js)) {
     wp_enqueue_script(
       'baltic-motion',
