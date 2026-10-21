@@ -3,62 +3,45 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
-
+  <meta name="theme-color" content="#17233d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <?php wp_head(); ?>
-
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body <?php body_class('bg-slate-950 text-slate-100'); ?>>
+<body <?php body_class('bts-wordpress-site'); ?>>
 <?php if (function_exists('wp_body_open')) { wp_body_open(); } ?>
-
-<div class="min-h-screen flex flex-col bg-slate-950 text-slate-100">
-
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-20">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2">
-          <img
-            src="https://1xu.5eb.myftpupload.com/wp-content/uploads/2025/12/Baltic-electric-4-white.png"
-            alt="Baltic Electric Ltd"
-            class="be-logo h-11 md:h-12 w-auto"
-          />
-        </a>
-      </div>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
-        <a href="<?php echo esc_url( home_url('/') ); ?>" class="hover:text-emerald-400">Home</a>
-        <a href="<?php echo esc_url( home_url('/solar-battery/') ); ?>" class="hover:text-emerald-400">Solar &amp; Battery</a>
-        <a href="<?php echo esc_url( home_url('/ev-chargers/') ); ?>" class="hover:text-emerald-400">EV Chargers</a>
-        <a href="<?php echo esc_url( home_url('/eicrs-boards/') ); ?>" class="hover:text-emerald-400">EICRs &amp; Boards</a>
-        <a href="<?php echo esc_url( home_url('/servicing-maintenance/') ); ?>" class="hover:text-emerald-400">Servicing &amp; Maintenance</a>
-      </nav>
-
-      <a
-  href="#"
-  data-baltic-quote="open"
-  data-bqd-open="1"
-  class="bqd-trigger text-xs sm:text-sm inline-flex items-center rounded-full bg-emerald-400 px-4 py-2 font-semibold text-slate-950 hover:bg-emerald-300 transition"
->
-  Get a quote
-</a>
-
-    </div>
-  </header>
-
-  <!-- Mobile nav -->
-  <div class="md:hidden border-b border-slate-800 bg-slate-950/90">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap gap-3 text-xs text-slate-300">
-      <a href="<?php echo esc_url( home_url('/') ); ?>" class="rounded-full border px-3 py-1 border-slate-700">Home</a>
-      <a href="<?php echo esc_url( home_url('/solar-battery/') ); ?>" class="rounded-full border px-3 py-1 border-slate-700">Solar</a>
-      <a href="<?php echo esc_url( home_url('/ev-chargers/') ); ?>" class="rounded-full border px-3 py-1 border-slate-700">EV</a>
-      <a href="<?php echo esc_url( home_url('/eicrs-boards/') ); ?>" class="rounded-full border px-3 py-1 border-slate-700">EICRs</a>
-      <a href="<?php echo esc_url( home_url('/servicing-maintenance/') ); ?>" class="rounded-full border px-3 py-1 border-slate-700">Servicing</a>
+<div class="bts-frame min-h-screen flex flex-col">
+  <div class="topline">
+    <div class="container topline-inner">
+      <span>Registered electrical contractor <strong>• NAPIT member 70877</strong></span>
+      <span>Baltic Electric Ltd trading as Baltic Technical Services</span>
     </div>
   </div>
-
-  <main class="flex-1">
+  <header id="main-header" class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="BTS Baltic Technical Services homepage">
+        <img class="brand-mark be-logo" src="<?php echo esc_url(get_theme_file_uri('/assets/bts-mark.svg')); ?>" width="110" height="36" alt="BTS logo">
+        <span class="brand-wording"><strong>Baltic Technical<br>Services</strong><small>Electrical • Renewables • Compliance</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
+        <a href="<?php echo esc_url(home_url('/solar-battery/')); ?>">Solar &amp; Battery</a>
+        <a href="<?php echo esc_url(home_url('/ev-chargers/')); ?>">EV Charging</a>
+        <a href="<?php echo esc_url(home_url('/eicrs-boards/')); ?>">EICRs</a>
+        <a href="<?php echo esc_url(home_url('/servicing-maintenance/')); ?>">Maintenance</a>
+      </nav>
+      <a href="#" data-baltic-quote="open" data-bqd-open="1" class="bqd-trigger btn btn-navy header-cta">Get a quote <span aria-hidden="true">↗</span></a>
+      <button id="mobileMenuToggle" class="mobile-toggle" type="button" aria-label="Open navigation" aria-controls="mobileNav" aria-expanded="false"><span aria-hidden="true">☰</span></button>
+    </div>
+    <nav id="mobileNav" class="mobile-nav" aria-label="Mobile navigation">
+      <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
+      <a href="<?php echo esc_url(home_url('/solar-battery/')); ?>">Solar &amp; Battery</a>
+      <a href="<?php echo esc_url(home_url('/ev-chargers/')); ?>">EV Charging</a>
+      <a href="<?php echo esc_url(home_url('/eicrs-boards/')); ?>">EICRs &amp; Boards</a>
+      <a href="<?php echo esc_url(home_url('/servicing-maintenance/')); ?>">Maintenance</a>
+      <a href="#" data-baltic-quote="open" data-bqd-open="1" class="bqd-trigger">Get a quote</a>
+    </nav>
+  </header>
+  <main class="flex-1" id="main">
